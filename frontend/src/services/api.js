@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "https://ai-flow-backend-bblo.onrender.com"
 });
 
 export const askAI = (prompt) => API.post("/ask-ai", { prompt });
