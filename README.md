@@ -58,13 +58,16 @@ POST /api/save
 User enters prompt -> Frontend sends request -> Backend calls OpenRouter API -> Response returned -> Displayed in UI -> Saved to MongoDB
 
 🔹Demo
-
+https://www.loom.com/share/8d968fc3e2034db4a267b7360b7a6c6f
 
 
 🔹Live Demo
+https://ai-flow-builder-nu.vercel.app/
 
 
+🔹Note
+OpenRouter API integration is implemented in the backend.
+Due to API credit limitations, a mock response is used for demonstration.
 
 🔹Author
-
 Fathimathul Mizba
