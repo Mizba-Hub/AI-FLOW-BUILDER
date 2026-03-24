@@ -22,7 +22,9 @@ router.post('/ask-ai', async (req, res) => {
   {
     headers: {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://ai-flow-builder-nu.vercel.app",
+      "X-Title": "AI Flow Builder"
     }
   }
 );
@@ -32,6 +34,7 @@ router.post('/ask-ai', async (req, res) => {
     });
 
   } catch (err) {
+    
     res.status(500).json({ error: err.message });
   }
 });
@@ -44,6 +47,7 @@ router.post('/save', async (req, res) => {
     const data = await Chat.create({ prompt, response });
     res.json(data);
   } catch (err) {
+      console.log(err.response?.data);
     res.status(500).json({ error: err.message });
   }
 });
