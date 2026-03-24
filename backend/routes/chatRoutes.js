@@ -8,10 +8,10 @@ router.post('/ask-ai', async (req, res) => {
   const { prompt } = req.body;
 
   try {
-   const response = await axios.post(
+ const response = await axios.post(
   'https://openrouter.ai/api/v1/chat/completions',
   {
-    model: "google/gemini-2.0-flash-lite-preview-02-05:free",
+    model: "mistralai/mistral-7b-instruct:free",
     messages: [
       {
         role: "user",
@@ -22,9 +22,7 @@ router.post('/ask-ai', async (req, res) => {
   {
     headers: {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://ai-flow-builder-nu.vercel.app",
-      "X-Title": "AI Flow Builder"
+      "Content-Type": "application/json"
     }
   }
 );
