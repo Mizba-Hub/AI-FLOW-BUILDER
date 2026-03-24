@@ -8,47 +8,36 @@ router.post('/ask-ai', async (req, res) => {
   const { prompt } = req.body;
 
   try {
- const response = await axios.post(
-  'https://openrouter.ai/api/v1/chat/completions',
-  {
-    model: "mistralai/mistral-7b-instruct:free",
-    messages: [
+    const response = await axios.post(
+      'https://openrouter.ai/api/v1/chat/completions',
       {
-        role: "user",
-        content: prompt
+        model: "mistralai/mistral-7b-instruct:free",
+        messages: [
+          { role: "user", content: prompt }
+        ]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://ai-flow-builder-nu.vercel.app",
+          "X-Title": "AI Flow Builder"
+        }
       }
-    ]
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://ai-flow-builder-nu.vercel.app",
-      "X-Title": "AI Flow Builder"
-    }
-  }
-);
+    );
 
     res.json({
       result: response.data.choices[0].message.content
     });
 
   } catch (err) {
-    
-    res.status(500).json({ error: err.message });
+    console.log("ERROR DATA:", err.response?.data);
+    console.log("ERROR STATUS:", err.response?.status);
+    console.log("ERROR MESSAGE:", err.message);
+
+    res.status(500).json({
+      error: err.response?.data || err.message
+    });
   }
-});
-
-
-router.post('/save', async (req, res) => {
-  const { prompt, response } = req.body;
-
-  try {
-    const data = await Chat.create({ prompt, response });
-    res.json(data);
-  } catch (err) {
-  console.log("FULL ERROR:", err.response?.data || err.message);
-  res.status(500).json({ error: err.message });
-}
 });
 module.exports = router;
