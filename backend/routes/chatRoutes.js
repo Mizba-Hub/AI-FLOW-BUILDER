@@ -47,8 +47,8 @@ router.post('/save', async (req, res) => {
     const data = await Chat.create({ prompt, response });
     res.json(data);
   } catch (err) {
-      console.log(err.response?.data);
-    res.status(500).json({ error: err.message });
-  }
+  console.log("FULL ERROR:", err.response?.data || err.message);
+  res.status(500).json({ error: err.message });
+}
 });
 module.exports = router;
